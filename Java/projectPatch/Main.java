@@ -13,23 +13,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args)throws Exception{
         Scanner input = new Scanner(System.in);
-
+        System.out.println(System.getProperty("user.dir"));
         do {
             System.out.println("Please choose config file type:");
             System.out.println("1.XML");
             System.out.println("2.TXT");
             int configType = input.nextInt();
 
-            System.out.println("Please input your config file name:");
+            System.out.println("Please input your config file path(absolute path):");
             String fileName = input.next();
-            File configFile = new File("../" + fileName);
+            File configFile = new File(fileName);
 
-            System.out.println("Please input your project name:");
-            String projectName = input.next();
+            System.out.println("Please input your project path:");
+            String projectPath = input.next();
 
             System.out.println("Please choose operation:");
             System.out.println("1.Export java file");
-            System.out.println("2.Export class file");
+            System.out.println("2.Expot class file");
             int op = input.nextInt();
 
             List<String> pathList = null;
@@ -60,7 +60,7 @@ public class Main {
             }
 
             try {
-                Map<String, Integer> countMap = ExportSource.exportJavaFile(projectName, pathList);
+                Map<String, Integer> countMap = ExportSource.exportJavaFile(projectPath, pathList);
 
                 System.out.println("**************************************");
                 for (Map.Entry<String, Integer> _entry : countMap.entrySet()) {

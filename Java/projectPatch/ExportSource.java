@@ -54,11 +54,11 @@ public class ExportSource {
         return pathList;
     }
 
-    public static Map<String,Integer> exportJavaFile(String projectName,List<String> pathList)throws IOException{
+    public static Map<String,Integer> exportJavaFile(String projectPath,List<String> pathList)throws IOException{
         Map<String,Integer> countMap = new HashMap<String,Integer>();
 
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH");
-        File patchDirectory = new File("../patch_"+df.format(Calendar.getInstance().getTime())+"_"+projectName);
+        File patchDirectory = new File("patch_"+df.format(Calendar.getInstance().getTime())+"_"+projectPath);
         if(!patchDirectory.exists()){
             patchDirectory.mkdirs();
         }
@@ -68,17 +68,17 @@ public class ExportSource {
         FileOutputStream fos =null;
         DataOutputStream dos  = null;
 
-        for(String path:pathList){
+        for(String filePath:pathList){
 
-            File outputDir = new File(patchDirectory+"/"+path.substring(0,path.lastIndexOf("/")));
+            File outputDir = new File(patchDirectory+"/"+filePath.substring(0,filePath.lastIndexOf("/")));
             if(!outputDir.exists()){
                 outputDir.mkdirs();
             }
 
-            fis = new FileInputStream("../"+projectName+"/"+path);
+            fis = new FileInputStream(projectPath+"/"+filePath);
             dis = new DataInputStream(fis);
 
-            fos = new FileOutputStream("../patch_"+df.format(Calendar.getInstance().getTime())+"_"+projectName+"/"+path);
+            fos = new FileOutputStream("patch_"+df.format(Calendar.getInstance().getTime())+"_"+projectPath+"/"+filePath);
             dos = new DataOutputStream(fos);
 
             int temp;
@@ -89,8 +89,8 @@ public class ExportSource {
             dis.close();
             dos.close();
 
-            System.out.println(path+"\t\tdone!");
-            String clazzType = path.substring(path.lastIndexOf(".")+1);
+            System.out.println(filePath+"\t\tdone!");
+            String clazzType = filePath.substring(filePath.lastIndexOf(".")+1);
             if(countMap.containsKey(clazzType)){
                 countMap.put(clazzType,countMap.get(clazzType)+1);
             }else{
