@@ -1,0 +1,8 @@
+#connect to database 
+db2 connect to (databasename) user sinodata
+
+#To execute sql file in command line for db2 database
+$ db2 -tvmf filename.sql |tee filename.sql.out
+
+#import data from db2 which exported(under directory which have your ixf file etc.)
+db2move YYDB import -u sinodata -p sinodata
