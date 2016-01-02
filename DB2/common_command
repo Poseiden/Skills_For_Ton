@@ -6,3 +6,9 @@ $ db2 -tvmf filename.sql |tee filename.sql.out
 
 #import data from db2 which exported(under directory which have your ixf file etc.)
 db2move YYDB import -u sinodata -p sinodata
+
+#import ixf file while table exists or not
+import from table.ixf(file name) of ixf insert into table(table name)
+
+OR NOT
+import from table.ixf(file name)of ixf create into table (leave the msg file alone which exported with table file together)
